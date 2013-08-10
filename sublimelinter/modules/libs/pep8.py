@@ -529,7 +529,7 @@ def continued_indentation(logical_line, tokens, indent_level, hang_closing,
                 for d in range(depth):
                     if indent[d] > prev_indent:
                         indent[d] = 0
-                for ind in list(indent_chances):
+                for ind in indent_chances:
                     if ind >= prev_indent:
                         del indent_chances[ind]
                 depth -= 1

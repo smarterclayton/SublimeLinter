@@ -165,7 +165,7 @@ def popup_error_list(view):
     errors = ERRORS[vid].copy()
 
     for message_map in [VIOLATIONS[vid], WARNINGS[vid]]:
-        for line, messages in list(message_map.items()):
+        for line, messages in message_map.items():
             if line in errors:
                 errors[line].extend(messages)
             else:
@@ -217,7 +217,7 @@ def add_lint_marks(view, lines, error_underlines, violation_underlines, warning_
     erase_lint_marks(view)
     types = {'warning': warning_underlines, 'violation': violation_underlines, 'illegal': error_underlines}
 
-    for type_name, underlines in list(types.items()):
+    for type_name, underlines in types.items():
         if underlines:
             view.add_regions('lint-underline-' + type_name, underlines, 'sublimelinter.underline.' + type_name, flags=sublime.DRAW_EMPTY_AS_OVERWRITE)
 
@@ -463,7 +463,7 @@ def background_linter():
     __lock_.acquire()
 
     try:
-        callbacks = list(QUEUE.values())
+        callbacks = QUEUE.values()
         QUEUE.clear()
     finally:
         __lock_.release()
@@ -629,7 +629,7 @@ def lint_views(linter):
 
 
 def reload_view_module(view):
-    for name, linter in list(LINTERS.items()):
+    for name, linter in LINTERS.items():
         module = sys.modules[linter.__module__]
 
         if module.__file__ == view.file_name():
