@@ -633,7 +633,7 @@ def reload_view_module(view):
         module = sys.modules[linter.__module__]
 
         if module.__file__ == view.file_name():
-            print('SublimeLinter: reloading language:', linter.language)
+            print('SublimeLinter: reloading language: {}'.format(linter.language))
             MOD_LOAD.reload_module(module)
             lint_views(linter)
             break
