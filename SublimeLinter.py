@@ -463,7 +463,7 @@ def background_linter():
     __lock_.acquire()
 
     try:
-        callbacks = QUEUE.values()
+        callbacks = list(QUEUE.values())
         QUEUE.clear()
     finally:
         __lock_.release()
