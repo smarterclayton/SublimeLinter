@@ -4,7 +4,10 @@ pylint is not available as a checker that runs in the background
 as it generally takes much too long.
 '''
 
-from io import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import tempfile
 
 try:

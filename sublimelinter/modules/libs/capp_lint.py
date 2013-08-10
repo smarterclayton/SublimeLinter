@@ -31,7 +31,10 @@ from __future__ import with_statement
 from optparse import OptionParser
 from string import Template
 import cgi
-import cStringIO
+try:
+    import cStringIO as io
+except ImportError:
+    import io
 import os
 import os.path
 import re
@@ -428,7 +431,7 @@ class LintChecker(object):
     def next_statement(self, expect_line=False, check_line=True):
         try:
             while True:
-                raw_line = self.sourcefile.next()
+                raw_line = next(self.sourcefile)
                 # strip EOL
                 if raw_line[-1] == '\n':  # ... unless this is the last line which might not have a \n.
                     raw_line = raw_line[:-1]
@@ -826,7 +829,7 @@ class LintChecker(object):
         self.filesToCheck = []
 
         try:
-            self.sourcefile = cStringIO.StringIO(text)
+            self.sourcefile = io.StringIO(text)
             self.run_file_checks()
         except StopIteration:
             if self.verbose:
